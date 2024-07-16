@@ -45,4 +45,21 @@ describe('AppointmentService', () => {
       }),
     ).toThrowError("appointment's endTime should be after startTime");
   });
+
+  it('should throw an error when end time is after start time', () => {
+    const startTime = new Date('2022-01-01T14:00:00Z');
+    const endTime = startTime;
+    /**
+     * We have to wrap our "scheduleAppointment" function in another arrow function
+     * because we expect an error to be thrown. If we don't do that,
+     * Jest won't be able to properly handle the error and it will accuse that the test failed.
+     */
+    expect(() =>
+      service.scheduleAppointment({
+        patientId: 1,
+        startTime,
+        endTime,
+      }),
+    ).toThrowError("appointment's endTime should be after startTime");
+  });
 });
